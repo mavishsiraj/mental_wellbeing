@@ -1,3 +1,6 @@
+/* Import playful doodle-style fonts */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Patrick+Hand&family=Quicksand:wght@400;500;600;700&display=swap');
+
 /* ===== CSS Variables - Luxury Calm Palette ===== */
 :root {
   --sage-green: #A8B5A0;
@@ -43,9 +46,6 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
-
-/* Import playful doodle-style fonts */
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Patrick+Hand&family=Quicksand:wght@400;500;600;700&display=swap');
 
 .app {
   width: 100%;
@@ -104,6 +104,16 @@ body {
 
 .navbar-scrolled .nav-doodle {
   opacity: 0.18 !important;
+}
+
+/* Nav Content Container */
+.nav-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
 
 .nav-doodle.doodle-1 {
@@ -1789,19 +1799,20 @@ p {
 .carousel-nav-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   max-width: 1100px;
   margin: 0 auto;
 }
 
-.carousel-nav-header p {
+.section-subtitle {
   color: #6B7A8A;
   font-size: 1.15rem;
   animation: fadeIn 1s ease 0.6s both;
   margin: 0;
+  text-align: center;
 }
 
-.carousel-nav-header p em {
+.section-subtitle em {
   background: linear-gradient(135deg, #A8B5A0, #9FB8C4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1810,10 +1821,25 @@ p {
   font-weight: 600;
 }
 
-/* Carousel arrows - circular like Dribbble */
+/* Carousel header row with arrows */
+.carousel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.carousel-header-row .section-subtitle {
+  text-align: left;
+}
+
+/* Carousel arrows */
 .carousel-arrows {
   display: flex;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .carousel-arrow {
@@ -1840,137 +1866,233 @@ p {
   transform: scale(0.95);
 }
 
-/* Carousel Container */
-.carousel-container {
+/* ===== CENTERED 3-CARD INFINITE CAROUSEL ===== */
+.carousel-viewport {
   position: relative;
-  z-index: 2;
-  max-width: 1100px;
-  margin: 40px auto 0;
+  max-width: 1000px;
+  margin: 50px auto 0;
   overflow: hidden;
+  z-index: 2;
   padding: 20px 0;
 }
 
-.carousel-track {
+/* Fade edges */
+.carousel-fade-left,
+.carousel-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel-fade-left {
+  left: 0;
+  background: linear-gradient(90deg, #F5EBE0 0%, transparent 100%);
+}
+
+.carousel-fade-right {
+  right: 0;
+  background: linear-gradient(-90deg, #F5EBE0 0%, transparent 100%);
+}
+
+/* Carousel track wrapper - centered 3-card layout */
+.carousel-track-wrapper {
   display: flex;
-  gap: 24px;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  padding-left: 20px;
-}
-
-/* Dribbble-style Card with Offset Shadow */
-.space-card {
+  justify-content: center;
+  align-items: center;
   position: relative;
+  height: 420px;
+  padding: 20px 0;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y pinch-zoom;
+}
+
+.carousel-track-wrapper.dragging {
+  cursor: grabbing;
+}
+
+/* Feature carousel cards */
+.feature-carousel-card {
+  position: absolute;
+  width: 300px;
+  height: 380px;
+  border-radius: 24px;
+  background: var(--card-color, #E8D5E0);
   cursor: pointer;
-  flex: 0 0 320px;
-  height: 340px;
-  opacity: 1;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+              opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.3s ease;
+  overflow: hidden;
+  will-change: transform, opacity;
 }
 
-@keyframes cardSlideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+.feature-carousel-card.no-transition {
+  transition: none !important;
 }
 
-/* Black shadow behind the card */
-.card-shadow {
+.feature-carousel-card::before {
+  content: '';
   position: absolute;
   inset: 0;
+  border-radius: 24px;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+}
+
+.feature-carousel-card:hover {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.12),
+    0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.feature-carousel-card.active {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Carousel dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(45, 55, 72, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot:hover {
+  background: rgba(45, 55, 72, 0.4);
+}
+
+.carousel-dot.active {
   background: #2D3748;
-  border-radius: 20px;
-  transform: translate(0, 0);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(1.2);
 }
 
-.space-card:hover .card-shadow {
-  transform: translate(8px, 8px);
+.feature-carousel-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.12),
+    0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* Main card body */
-.card-body {
-  position: absolute;
-  inset: 0;
-  background: #FFFEF8;
-  border: 2.5px solid #2D3748;
-  border-radius: 20px;
-  padding: 24px;
+.carousel-card-inner {
+  height: 100%;
+  padding: 32px 28px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  align-items: center;
+  text-align: center;
+  position: relative;
   z-index: 1;
 }
 
-.space-card:hover .card-body {
-  transform: translate(-6px, -6px);
+/* Card icon */
+.carousel-card-icon {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 24px;
+  color: var(--card-accent, #C4A4B3);
+  transition: all 0.4s ease;
 }
 
-/* Card text content */
-.card-text {
-  flex: 0 0 auto;
+.feature-carousel-card:hover .carousel-card-icon {
+  transform: scale(1.1) rotate(-5deg);
+  color: #4A5568;
 }
 
-.card-text h3 {
+.carousel-card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Card typography */
+.carousel-card-inner h3 {
   font-family: 'Baloo 2', 'Nunito', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #2D3748;
-  margin: 0 0 8px 0;
-  text-transform: uppercase;
+  color: #3D4852;
+  margin: 0 0 12px 0;
   letter-spacing: 0.5px;
 }
 
-.card-text p {
+.carousel-card-inner p {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.9rem;
-  color: #5A6A7A;
-  line-height: 1.5;
+  font-size: 0.95rem;
+  color: #5A6A70;
+  line-height: 1.6;
   margin: 0;
-}
-
-/* Card illustration area */
-.card-illustration {
   flex: 1;
+}
+
+/* Decorative dots */
+.carousel-card-decoration {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-top: 16px;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
 }
 
-.card-illustration svg {
-  width: 100%;
-  max-width: 140px;
-  height: auto;
-  transition: transform 0.4s ease;
-}
-
-.space-card:hover .card-illustration svg {
-  transform: scale(1.08) translateY(-4px);
-}
-
-/* Card tag at bottom */
-.card-tag {
-  position: absolute;
-  bottom: 16px;
-  left: 20px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.75rem;
-  color: #8A9AA8;
-  background: rgba(168, 181, 160, 0.15);
-  padding: 4px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(168, 181, 160, 0.3);
+.deco-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--card-accent, #C4A4B3);
+  opacity: 0.5;
   transition: all 0.3s ease;
 }
 
-.space-card:hover .card-tag {
-  background: rgba(168, 181, 160, 0.3);
-  color: #5A6A60;
-  transform: translateX(4px);
+.feature-carousel-card:hover .deco-dot {
+  opacity: 1;
+}
+
+.feature-carousel-card:hover .deco-dot:nth-child(1) {
+  transform: translateY(-4px);
+  transition-delay: 0s;
+}
+
+.feature-carousel-card:hover .deco-dot:nth-child(2) {
+  transform: translateY(-8px);
+  transition-delay: 0.1s;
+}
+
+.feature-carousel-card:hover .deco-dot:nth-child(3) {
+  transform: translateY(-4px);
+  transition-delay: 0.2s;
+}
+
+/* Gradient overlay on hover */
+.feature-carousel-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  border-radius: 24px;
+}
+
+.feature-carousel-card:hover::after {
+  opacity: 1;
 }
 
 /* Responsive for carousel */
@@ -1981,13 +2103,13 @@ p {
     text-align: center;
   }
   
-  .carousel-container {
-    margin-top: 30px;
+  .feature-carousel-card {
+    flex: 0 0 260px;
+    height: 340px;
   }
   
-  .space-card {
-    flex: 0 0 280px;
-    height: 320px;
+  .carousel-edge-zone {
+    width: 50px;
   }
 }
 
@@ -2005,17 +2127,17 @@ p {
     height: 38px;
   }
   
-  .space-card {
-    flex: 0 0 260px;
-    height: 300px;
+  .feature-carousel-card {
+    flex: 0 0 240px;
+    height: 320px;
   }
   
-  .space-card:hover .card-shadow {
-    transform: translate(5px, 5px);
+  .carousel-container {
+    padding: 20px 30px;
   }
   
-  .space-card:hover .card-body {
-    transform: translate(-4px, -4px);
+  .carousel-edge-zone {
+    display: none;
   }
 }
 
@@ -2217,30 +2339,47 @@ p {
 /* ===== Reminder Section ===== */
 .reminder-section {
   padding: 100px 20px;
-  background: var(--warm-beige);
+  background: linear-gradient(180deg, var(--off-white) 0%, var(--warm-beige) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.reminder-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(232, 200, 122, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(168, 181, 160, 0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .reminder-content {
   position: relative;
   text-align: center;
   padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-xl);
+  border: 2px dashed rgba(168, 181, 160, 0.3);
+  max-width: 600px;
 }
 
 .reminder-text {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-family: 'Patrick Hand', 'Caveat', cursive;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   color: var(--text-primary);
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 400;
   letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 .reminder-decoration {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-top: 24px;
-  opacity: 0.6;
+  opacity: 0.7;
   animation: float 4s ease-in-out infinite;
 }
 
@@ -2251,11 +2390,21 @@ p {
     180deg,
     var(--warm-beige) 0%,
     var(--muted-blue) 50%,
-    #89A5B3 100%
+    #5A7A8A 100%
   );
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
+  pointer-events: none;
 }
 
 .cta-content {
@@ -2264,14 +2413,189 @@ p {
 }
 
 .cta-content h2 {
+  font-family: 'Comfortaa', 'Quicksand', sans-serif;
   color: var(--text-primary);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 600;
 }
 
 .cta-content p {
+  font-family: 'Patrick Hand', cursive;
   color: var(--text-secondary);
   margin-bottom: 36px;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #5D7052 0%, #7A8F6E 100%);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 6px 20px rgba(93, 112, 82, 0.3);
+}
+
+.btn-cta:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(93, 112, 82, 0.4);
+}
+
+.btn-cta::after {
+  content: '→';
+  transition: transform 0.3s ease;
+}
+
+.btn-cta:hover::after {
+  transform: translateX(4px);
+}
+
+/* CTA Tag */
+.cta-tag {
+  display: inline-block;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.1rem;
+  color: var(--sage-green);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+}
+
+/* CTA Doodles */
+.cta-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cta-doodle {
+  position: absolute;
+  color: rgba(93, 112, 82, 0.25);
+  animation: doodleFloat 4s ease-in-out infinite;
+}
+
+.cta-doodle.heart-1 {
+  top: 15%;
+  left: 12%;
+  animation-delay: 0s;
+  color: rgba(200, 162, 142, 0.4);
+}
+
+.cta-doodle.heart-2 {
+  bottom: 20%;
+  right: 15%;
+  animation-delay: 1.5s;
+  color: rgba(200, 162, 142, 0.3);
+}
+
+.cta-doodle.star-1 {
+  top: 25%;
+  right: 18%;
+  animation-delay: 0.8s;
+  color: rgba(137, 165, 179, 0.4);
+}
+
+.cta-doodle.star-2 {
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 2s;
+  color: rgba(137, 165, 179, 0.35);
+}
+
+.cta-doodle.flower {
+  top: 50%;
+  left: 8%;
+  animation-delay: 1.2s;
+  color: rgba(93, 112, 82, 0.25);
+}
+
+.cta-doodle.sparkle-1 {
+  top: 35%;
+  left: 25%;
+  animation-delay: 0.5s;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cta-doodle.sparkle-2 {
+  bottom: 25%;
+  right: 25%;
+  animation-delay: 2.5s;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes doodleFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-8px) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+/* ===== Reminder Section Doodles ===== */
+.reminder-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.reminder-doodle {
+  position: absolute;
+  color: rgba(93, 112, 82, 0.3);
+  animation: doodleFloat 5s ease-in-out infinite;
+}
+
+.reminder-doodle.star-1 {
+  top: 15%;
+  left: 8%;
+  animation-delay: 0s;
+  color: rgba(137, 165, 179, 0.5);
+}
+
+.reminder-doodle.star-2 {
+  bottom: 20%;
+  right: 10%;
+  animation-delay: 1.8s;
+  color: rgba(137, 165, 179, 0.4);
+}
+
+.reminder-doodle.heart-1 {
+  top: 20%;
+  right: 12%;
+  animation-delay: 0.6s;
+  color: rgba(200, 162, 142, 0.5);
+}
+
+.reminder-doodle.sparkle {
+  bottom: 25%;
+  left: 15%;
+  animation-delay: 1.2s;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.reminder-tag {
+  display: inline-block;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.95rem;
+  color: var(--sage-green);
+  background: rgba(93, 112, 82, 0.1);
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 0.03em;
 }
 
 /* ===== Responsive ===== */
@@ -2323,5 +2647,170 @@ p {
   .features-section,
   .experience-section {
     padding: 80px 20px;
+  }
+}
+
+/* ===== Footer ===== */
+.footer {
+  position: relative;
+  background: linear-gradient(180deg, #5A7A8A 0%, #3D5A6A 100%);
+  padding: 60px 20px 40px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.footer-wave {
+  display: none;
+}
+
+.footer-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.footer-doodle {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.15);
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+.footer-doodle.heart {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.footer-doodle.star {
+  top: 30%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.footer-doodle.flower {
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+.footer-doodle.cloud {
+  top: 15%;
+  right: 25%;
+  animation-delay: 0.5s;
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.footer-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.footer-logo-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.footer-logo-text {
+  font-family: 'Comfortaa', 'Quicksand', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.02em;
+}
+
+.footer-tagline {
+  font-family: 'Patrick Hand', 'Caveat', cursive;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 24px;
+  letter-spacing: 0.03em;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.footer-link {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.footer-divider {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+}
+
+.footer-bottom {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-copyright {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+}
+
+.footer-heart {
+  color: #F8C8D4;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.footer-year {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Footer responsive */
+@media (max-width: 480px) {
+  .footer {
+    padding: 50px 20px 30px;
+  }
+  
+  .footer-links {
+    gap: 4px;
+  }
+  
+  .footer-link {
+    padding: 6px 10px;
+    font-size: 0.85rem;
   }
 }
