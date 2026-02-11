@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-// Navbar component with scroll state and menu toggle
-const Navbar = () => {
+// Navbar component with scroll state, menu toggle, and page navigation
+const Navbar = ({ currentPage = 'home', navigateTo = () => { } }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -12,6 +12,11 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (page) => {
+    navigateTo(page);
+    setMenuOpen(false);
+  };
 
   return (
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
@@ -31,7 +36,7 @@ const Navbar = () => {
 
       <div className="nav-content">
         {/* Logo */}
-        <div className="nav-logo">
+        <div className="nav-logo" onClick={() => handleNavClick('home')} style={{ cursor: 'pointer' }}>
           <div className="logo-icon">
             <svg viewBox="0 0 40 40" width="32" height="32">
               <defs>
@@ -50,9 +55,9 @@ const Navbar = () => {
         </div>
 
         {/* Nav Links */}
-        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <a href="#" className="nav-link active">Home</a>
-          <a href="#" className="nav-link">Journal</a>
+        <div className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
+          <a href="#" className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}>Home</a>
+          <a href="#" className={`nav-link ${currentPage === 'journal' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('journal'); }}>Journal</a>
           <a href="#" className="nav-link">Talk</a>
           <a href="#" className="nav-link">Resources</a>
           <a href="#" className="nav-link">About</a>

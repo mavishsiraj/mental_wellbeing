@@ -5,7 +5,7 @@ import { useQuoteRotation } from '../controllers';
 import { HERO_QUOTES, CLOUD_POSITIONS } from '../models';
 
 // Hero Section Component - combines view and controller logic
-const Hero = () => {
+const Hero = ({ navigateTo = () => { } }) => {
   const currentQuote = useQuoteRotation(HERO_QUOTES, 5000);
 
   return (
@@ -13,15 +13,15 @@ const Hero = () => {
       <video src={introVideo} autoPlay loop muted playsInline className="hero-video" />
       <div className="hero-overlay" />
       <HeroDoodles />
-      
+
       {CLOUD_POSITIONS.map((cloud, index) => (
-        <CuteCloud 
-          key={`cloud-${index}`} 
-          top={cloud.top} 
-          left={cloud.left} 
-          right={cloud.right} 
-          size={cloud.size} 
-          delay={index * 1.5} 
+        <CuteCloud
+          key={`cloud-${index}`}
+          top={cloud.top}
+          left={cloud.left}
+          right={cloud.right}
+          size={cloud.size}
+          delay={index * 1.5}
         />
       ))}
 
@@ -34,7 +34,7 @@ const Hero = () => {
           <p key={currentQuote} className="hero-quote">"{HERO_QUOTES[currentQuote]}"</p>
         </div>
         <div className="hero-buttons">
-          <button className="btn-primary">Start Journaling</button>
+          <button className="btn-primary" onClick={() => navigateTo('journal')}>Start Journaling</button>
           <button className="btn-secondary">How this helps</button>
         </div>
       </div>
