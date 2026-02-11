@@ -1,4 +1,4 @@
-/* Import playful doodle-style fonts */
+﻿/* Import playful doodle-style fonts */
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Patrick+Hand&family=Quicksand:wght@400;500;600;700&display=swap');
 
 /* ===== CSS Variables - Luxury Calm Palette ===== */
@@ -2764,7 +2764,7 @@ p {
 }
 
 .btn-cta::after {
-  content: '→';
+  content: 'ΓåÆ';
   transition: transform 0.3s ease;
 }
 

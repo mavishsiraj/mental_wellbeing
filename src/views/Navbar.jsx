@@ -58,16 +58,15 @@ const Navbar = ({ currentPage = 'home', navigateTo = () => { } }) => {
         <div className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
           <a href="#" className={`nav-link ${currentPage === 'home' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}>Home</a>
           <a href="#" className={`nav-link ${currentPage === 'journal' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('journal'); }}>Journal</a>
-          <a href="#" className="nav-link">Talk</a>
-          <a href="#" className="nav-link">Resources</a>
-          <a href="#" className="nav-link">About</a>
+          <a href="#" className={`nav-link ${currentPage === 'talk' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('talk'); }}>Talk</a>
+          <a href="#" className={`nav-link ${currentPage === 'companion' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('companion'); }}>Companion</a>
+          <a href="#" className={`nav-link ${currentPage === 'resources' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); handleNavClick('resources'); }}>Resources</a>
         </div>
 
         {/* CTA Button */}
         <div className="nav-actions">
-          <button className="nav-btn-secondary">Sign In</button>
-          <button className="nav-btn-primary">
-            <span>Get Help</span>
+          <button className="nav-btn-primary" onClick={() => handleNavClick('book-call')}>
+            <span>Book a Call</span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>

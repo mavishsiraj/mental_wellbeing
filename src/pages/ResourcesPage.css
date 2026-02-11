@@ -1,0 +1,168 @@
+/* ===== Resources Page ===== */
+.resources-page {
+    padding-top: 100px;
+    min-height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.resources-container {
+    max-width: 1200px;
+    z-index: 2;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.resources-header {
+    text-align: center;
+    margin-bottom: 70px;
+    animation: fadeInUp 0.8s ease;
+}
+
+.resources-header h1 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 3.2rem;
+    color: #4A4A4A;
+    margin-bottom: 10px;
+}
+
+.header-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: #E8C87A;
+    font-size: 1.2rem;
+}
+
+.header-decoration .line {
+    width: 50px;
+    height: 2px;
+    background: #E8C87A;
+    border-radius: 2px;
+}
+
+.resources-header p {
+    font-size: 1.2rem;
+    color: #666;
+    animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+}
+
+.exercise-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.stagger-animation {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.exercise-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    background: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    z-index: 5;
+}
+
+.card-inner {
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    transition: transform 0.5s ease;
+}
+
+.exercise-card:hover .icon-wrapper {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.card-icon {
+    font-size: 38px;
+}
+
+.card-content h3 {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 4px;
+}
+
+.card-content h4 {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.duration-pill {
+    display: inline-block;
+    background: #F5F5F5;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border: 1px solid #EEE;
+}
+
+.card-content p {
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.start-btn {
+    margin-top: auto;
+    color: white;
+    border: none;
+    padding: 12px 36px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.05);
+}
